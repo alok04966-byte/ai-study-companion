@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { TASK_STATUS } from "../utils/constants";
 
 const StudyContext = createContext();
 
@@ -96,6 +97,7 @@ export const StudyProvider = ({ children }) => {
         subjects,
         topics,
         tasks,
+        revisions,
         addSubject,
         deleteSubject,
         addTopic,
