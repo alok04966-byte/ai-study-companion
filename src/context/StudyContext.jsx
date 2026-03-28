@@ -15,6 +15,9 @@ export const StudyProvider = ({ children }) => {
     return JSON.parse(localStorage.getItem("tasks")) || [];
     });
     
+    const [revisions, setRevisions] = useState(() => {
+      return JSON.parse(localStorage.getItem("revisions")) || [];
+    });
 
   // 🔹 Save to localStorage
   useEffect(() => {
@@ -28,6 +31,10 @@ export const StudyProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem("revisions", JSON.stringify(revisions));
+  }, [revisions]);
 
   // 🔥 SUBJECT CRUD
   const addSubject = (subject) => {
@@ -57,11 +64,30 @@ export const StudyProvider = ({ children }) => {
   };
 
   const updateTaskStatus = (id, newStatus) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, status: newStatus } : task
-      )
-    );
+    setTasks((prevTasks) => {
+      return prevTasks.map((task) => {
+        if (task.id === id) {
+          // 🔥 If completed → create revision
+          if (newStatus === TASK_STATUS.COMPLETED) {
+            const revisionDate = new Date();
+            revisionDate.setDate(revisionDate.getDate() + 3);
+
+            setRevisions((prev) => [
+              ...prev,
+              {
+                id: Date.now(),
+                taskId: task.id,
+                date: revisionDate.toISOString().split("T")[0],
+              },
+            ]);
+          }
+
+          return { ...task, status: newStatus };
+        }
+
+        return task;
+      });
+    });
   };
 
   return (
