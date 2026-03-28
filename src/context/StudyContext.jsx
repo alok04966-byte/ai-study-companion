@@ -56,6 +56,14 @@ export const StudyProvider = ({ children }) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const updateTaskStatus = (id, newStatus) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, status: newStatus } : task
+      )
+    );
+  };
+
   return (
     <StudyContext.Provider
       value={{
@@ -68,6 +76,7 @@ export const StudyProvider = ({ children }) => {
         deleteTopic,
         addTask,
         deleteTask,
+        updateTaskStatus,
       }}
     >
       {children}
