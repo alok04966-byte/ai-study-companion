@@ -7,6 +7,7 @@ function Sidebar() {
 
       <nav>
         <Link to="/subjects">Subjects</Link>
+        <Link to="/tasks">Tasks</Link>
       </nav>
     </div>
   );
