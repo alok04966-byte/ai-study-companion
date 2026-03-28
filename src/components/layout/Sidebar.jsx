@@ -6,10 +6,11 @@ function Sidebar() {
       <h2>Study App</h2>
 
       <nav style={styles.nav}>
-        <Link to="/subjects">Subjects</Link>
-        <Link to="/tasks">Tasks</Link>
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/revision">Revision</Link>
+        <Link to="/subjects" style={styles.a}>Subjects</Link>
+        <Link to="/tasks" style={styles.a}>Tasks</Link>
+        <Link to="/dashboard" style={styles.a}>Dashboard</Link>
+        <Link to="/revision" style={styles.a}>Revision</Link>
+        <Link to="/ai-tools" style={styles.a}>AI Tools</Link>
       </nav>
     </div>
   );
@@ -35,7 +36,7 @@ const styles = {
     color: "white",
     textDecoration: "none",
     cursor: "pointer",
-  }
+  },
 };
 
 export default Sidebar;
