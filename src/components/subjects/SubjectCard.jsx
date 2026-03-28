@@ -1,4 +1,6 @@
 import { useStudy } from "../../context/StudyContext";
+import TopicForm from "../topics/TopicForm";
+import TopicList from "../topics/TopicList";
 
 function SubjectCard({ subject }) {
   const { deleteSubject } = useStudy();
@@ -11,6 +13,9 @@ function SubjectCard({ subject }) {
       <button onClick={() => deleteSubject(subject.id)} style={styles.delete}>
         Delete
       </button>
+
+      <TopicForm subjectId={subject.id} />
+      <TopicList subjectId={subject.id} />
     </div>
   );
 }
