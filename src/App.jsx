@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Tasks from "./pages/Tasks";
 import Subjects from "./pages/Subjects";
 import Layout from "./components/layout/Layout";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Route path="/" element={<Subjects />} />
           <Route path="/subjects" element={<Subjects />} />
           <Route path="/tasks" element={<Tasks />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Layout>
     </BrowserRouter>
