@@ -1,11 +1,11 @@
 import AIPromptBox from "../components/ai/AIPromptBox";
+import PageShell from "../components/common/PageShell";
 
 function AITools() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>AI Tools</h1>
+    <PageShell title="AI Study Assistant">
       <AIPromptBox />
-    </div>
+    </PageShell>
   );
 }
 

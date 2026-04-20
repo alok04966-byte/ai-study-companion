@@ -1,42 +1,36 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { FiBookOpen, FiCheckSquare, FiBarChart2, FiRotateCw, FiCpu, FiMoon, FiSun } from "react-icons/fi";
 
-function Sidebar() {
+function Sidebar({ theme, onToggleTheme }) {
+  const navItems = [
+    { to: "/subjects", label: "Subjects", icon: <FiBookOpen /> },
+    { to: "/tasks", label: "Tasks", icon: <FiCheckSquare /> },
+    { to: "/dashboard", label: "Dashboard", icon: <FiBarChart2 /> },
+    { to: "/revision", label: "Revision", icon: <FiRotateCw /> },
+    { to: "/ai-tools", label: "AI Tools", icon: <FiCpu /> },
+  ];
+
   return (
-    <div style={styles.sidebar}>
-      <h2>Study App</h2>
+    <aside className="app-sidebar">
+      <div className="app-brand">
+        <FiBookOpen />
+        <span>AI Study Companion</span>
+      </div>
 
-      <nav style={styles.nav}>
-        <Link to="/subjects" style={styles.a}>Subjects</Link>
-        <Link to="/tasks" style={styles.a}>Tasks</Link>
-        <Link to="/dashboard" style={styles.a}>Dashboard</Link>
-        <Link to="/revision" style={styles.a}>Revision</Link>
-        <Link to="/ai-tools" style={styles.a}>AI Tools</Link>
+      <nav className="app-sidebar-nav">
+        {navItems.map(({ to, label, icon }) => (
+          <NavLink key={to} to={to} className={({ isActive }) => `nav-link${isActive ? " active" : ""}`}>
+            {icon}
+            <span>{label}</span>
+          </NavLink>
+        ))}
       </nav>
-    </div>
+
+      <button type="button" className="btn btn-secondary theme-toggle" onClick={onToggleTheme}>
+        {theme === "dark" ? <FiSun /> : <FiMoon />} {theme === "dark" ? "Light Mode" : "Dark Mode"}
+      </button>
+    </aside>
   );
 }
-
-const styles = {
-  sidebar: {
-    width: "200px",
-    height: "100vh",
-    background: "#111",
-    color: "#fff",
-    padding: "20px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-  },
-  nav: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-  },
-  a: {
-    color: "white",
-    textDecoration: "none",
-    cursor: "pointer",
-  },
-};
 
 export default Sidebar;

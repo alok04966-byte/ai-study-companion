@@ -65,6 +65,13 @@ body {
   margin: 0;
 }
 
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
 #root {
   max-width: 100%;
   margin: 0 auto;
@@ -118,4 +125,24 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+  .app-sidebar-nav {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+  }
+
+  .app-content {
+    padding: 12px !important;
+  }
 }

@@ -1,49 +1,34 @@
-import { useStudy } from "../../context/StudyContext";
-import { TASK_STATUS } from "../../utils/constants";
+import { useProgress } from "../../hooks/useProgress";
+import { FiClipboard, FiCheckCircle, FiClock, FiRotateCw, FiAlertTriangle, FiTrendingUp } from "react-icons/fi";
 
 function StatsCards() {
-  const { tasks } = useStudy();
-
-  const total = tasks.length;
-
-  const completed = tasks.filter(
-    (t) => t.status === TASK_STATUS.COMPLETED
-  ).length;
-
-  const pending = tasks.filter(
-    (t) => t.status === TASK_STATUS.PENDING
-  ).length;
-
-  const revision = tasks.filter(
-    (t) => t.status === TASK_STATUS.REVISION
-  ).length;
-
-  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+  const { totalTasks, completedTasks, pendingTasks, revisionTasks, overdueTasks, completionPercentage } =
+    useProgress();
+  const stats = [
+    { label: "Total Tasks", value: totalTasks, icon: FiClipboard },
+    { label: "Completed", value: completedTasks, icon: FiCheckCircle },
+    { label: "Pending", value: pendingTasks, icon: FiClock },
+    { label: "Revision", value: revisionTasks, icon: FiRotateCw },
+    { label: "Overdue", value: overdueTasks, icon: FiAlertTriangle },
+    { label: "Completion", value: `${completionPercentage}%`, icon: FiTrendingUp },
+  ];
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>Total: {total}</div>
-      <div style={styles.card}>Completed: {completed}</div>
-      <div style={styles.card}>Pending: {pending}</div>
-      <div style={styles.card}>Revision: {revision}</div>
-      <div style={styles.card}>Completion: {percentage}%</div>
+    <div className="stats-grid">
+      {stats.map((item) => {
+        const Icon = item.icon;
+        return (
+          <div key={item.label} className="panel panel-hover stat-card">
+            <div className="task-meta">
+              <Icon />
+              <span className="stat-label">{item.label}</span>
+            </div>
+            <div className="stat-value">{item.value}</div>
+          </div>
+        );
+      })}
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    gap: "10px",
-    flexWrap: "wrap",
-    marginBottom: "30px",
-  },
-  card: {
-    padding: "15px",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    minWidth: "120px",
-  },
-};
 
 export default StatsCards;
